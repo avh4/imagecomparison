@@ -1,7 +1,8 @@
 package net.avh4.util.imagecomparison;
 
 import java.awt.Component;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
@@ -79,7 +80,11 @@ public class ImageComparison {
 		validateComponent(c);
 		final BufferedImage image = new BufferedImage(c.getWidth(),
 				c.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		final Graphics g = image.createGraphics();
+		final Graphics2D g = image.createGraphics();
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_OFF);
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 		c.paint(g);
 		g.dispose();
 		return image;
