@@ -20,14 +20,15 @@ import org.hamcrest.TypeSafeMatcher;
 public class Matchers {
 
 	@Factory
-	public static Matcher<Object> looksLike(String string) throws IOException {
+	public static Matcher<Object> looksLike(final String string)
+			throws IOException {
 		return new LooksLikeMatcher(string);
 	}
 
 	@Factory
 	public static Matcher<Object> isApproved() throws IOException {
 		final StackTraceElement trace = StackUtils
-				.getCallingStackTraceElement();
+				.getCallingTestMethodStackTraceElement();
 		final String methodName = trace.getMethodName();
 		final String className = StackUtils.getCallingClass().getSimpleName();
 		return looksLike(String.format("%s.%s.png", className, methodName));
@@ -47,7 +48,7 @@ public class Matchers {
 		return new TypeSafeMatcher<String>() {
 
 			@Override
-			public boolean matchesSafely(String actual) {
+			public boolean matchesSafely(final String actual) {
 				if (actual.equals(expected)) {
 					return true;
 				} else {
@@ -62,7 +63,8 @@ public class Matchers {
 				}
 			}
 
-			public void describeTo(Description arg0) {
+			@Override
+			public void describeTo(final Description arg0) {
 				arg0.appendText("a String matching " + filename);
 			}
 		};
