@@ -76,12 +76,7 @@ abstract class StackUtils {
 		try {
 			final Method method = clazz.getMethod(stackTraceElement
 					.getMethodName());
-			final Test annotation = method.getAnnotation(Test.class);
-			if (annotation == null) {
-				return false;
-			} else {
-				return true;
-			}
+			return isJUnit4TestMethod(method) || isJUnit3TestMethod(method);
 		} catch (final SecurityException e) {
 			throw new RuntimeException("Couldn't read stack trace information",
 					e);
@@ -91,6 +86,23 @@ abstract class StackUtils {
 			// any method calls in the stack trace that do take parameters will
 			// trigger this exception. (But this is safe to silently ignore,
 			// since any method that has parameters will not be a test method.)
+			return false;
+		}
+	}
+
+	private static boolean isJUnit4TestMethod(final Method method) {
+		final Test annotation = method.getAnnotation(Test.class);
+		if (annotation == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private static boolean isJUnit3TestMethod(final Method method) {
+		if (method.getName().startsWith("test")) {
+			return true;
+		} else {
 			return false;
 		}
 	}

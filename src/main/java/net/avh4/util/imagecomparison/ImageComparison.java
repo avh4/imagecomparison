@@ -19,7 +19,7 @@ public class ImageComparison {
 		// Compare the image sizes
 		if (itemImage.getWidth() != referenceImage.getWidth()
 				|| itemImage.getHeight() != referenceImage.getHeight()) {
-			ImageComparison.writeImage(itemImage, filename);
+			write(itemImage, filename);
 			return false;
 		}
 
@@ -35,7 +35,7 @@ public class ImageComparison {
 			referenceRaster.getPixels(0, y, width, 1, referencePixels);
 			for (int i = 0; i < 4 * width; i++) {
 				if (itemPixels[i] != referencePixels[i]) {
-					ImageComparison.writeImage(itemImage, filename);
+					write(itemImage, filename);
 					return false;
 				}
 			}
@@ -44,10 +44,18 @@ public class ImageComparison {
 		return true;
 	}
 
-	private static void writeImage(final BufferedImage itemImage,
-			final String filename) {
+	private static BufferedImage read(final String imageName) {
 		try {
-			ImageIO.write(itemImage, "png", new File(filename));
+			return ImageIO.read(new File(imageName));
+		} catch (final IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private static void write(final BufferedImage image, final String filename) {
+		try {
+			ImageIO.write(image, "png", new File(filename));
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
@@ -55,11 +63,7 @@ public class ImageComparison {
 
 	public static boolean matches(final Object item,
 			final String referenceFilename, final String outputFilename) {
-		BufferedImage expectedImage = null;
-		try {
-			expectedImage = ImageIO.read(new File(referenceFilename));
-		} catch (final IOException e) {
-		}
+		final BufferedImage expectedImage = read(referenceFilename);
 		return matches(item, expectedImage, outputFilename);
 	}
 
@@ -69,7 +73,7 @@ public class ImageComparison {
 		if (actualImage == null) {
 			return false;
 		} else if (expectedImage == null) {
-			writeImage(actualImage, outputFilename);
+			write(actualImage, outputFilename);
 			return false;
 		} else {
 			return matchesImage(actualImage, expectedImage, outputFilename);
