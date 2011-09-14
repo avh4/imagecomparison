@@ -63,6 +63,26 @@
           </archive>
         </configuration>
       </plugin>
+      <plugin>
+      	<groupId>org.jbehave</groupId>
+      	<artifactId>jbehave-maven-plugin</artifactId>
+      	<version>3.5</version>
+        <executions>
+          <execution>
+            <id>run-stories-as-embeddables</id>
+            <phase>integration-test</phase>
+      	    <configuration>
+              <scope>test</scope>
+              <includes>
+                <include>**/*Stories.java</include>
+              </includes>
+            </configuration>
+            <goals>
+              <goal>run-stories-as-embeddables</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -80,14 +100,46 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-integration</artifactId>
-      <version>1.2.1</version>
-    </dependency>
-    <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>1.4</version>
     </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.jbehave</groupId>
+    	<artifactId>jbehave-core</artifactId>
+    	<version>3.5</version>
+    	<scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>commons-codec</groupId>
+    	<artifactId>commons-codec</artifactId>
+    	<version>1.5</version>
+    	<scope>compile</scope>
+    </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-core</artifactId>
+        <version>1.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-library</artifactId>
+        <version>1.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-integration</artifactId>
+        <version>1.2.1</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
