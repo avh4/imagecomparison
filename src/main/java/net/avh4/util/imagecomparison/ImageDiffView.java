@@ -17,6 +17,8 @@ public class ImageDiffView extends JComponent {
 	private final BufferedImage image1;
 	private final BufferedImage image2;
 
+	private boolean showHighlight = true;
+
 	public ImageDiffView(final String file1, final String file2)
 			throws IOException {
 		image1 = ImageIO.read(new File(file1));
@@ -38,13 +40,20 @@ public class ImageDiffView extends JComponent {
 		g.drawImage(image1, 0, 0, null);
 		g.drawImage(image2, w1, 0, null);
 
-		g.setColor(Color.RED);
-		for (int x = 0; x < Math.min(w1, w2); x++) {
-			for (int y = 0; y < Math.min(h1, h2); y++) {
-				if (image1.getRGB(x, y) != image2.getRGB(x, y)) {
-					g.drawLine(x, y, x, y);
+		if (showHighlight) {
+			g.setColor(Color.RED);
+			for (int x = 0; x < Math.min(w1, w2); x++) {
+				for (int y = 0; y < Math.min(h1, h2); y++) {
+					if (image1.getRGB(x, y) != image2.getRGB(x, y)) {
+						g.drawLine(x, y, x, y);
+					}
 				}
 			}
 		}
+	}
+
+	public void setShowHighlight(final boolean b) {
+		showHighlight = b;
+		repaint();
 	}
 }

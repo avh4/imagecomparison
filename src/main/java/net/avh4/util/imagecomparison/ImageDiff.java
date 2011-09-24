@@ -1,18 +1,23 @@
 package net.avh4.util.imagecomparison;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 
-public class ImageDiff extends JFrame {
+public class ImageDiff extends JFrame implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
+	private final ImageDiffView view;
 
 	public ImageDiff(final String file1, final String file2) throws IOException {
 		setBackground(Color.WHITE);
-		getContentPane().add(new ImageDiffView(file1, file2));
+		addMouseListener(this);
+		view = new ImageDiffView(file1, file2);
+		getContentPane().add(view);
 		pack();
 	}
 
@@ -37,5 +42,26 @@ public class ImageDiff extends JFrame {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public void mouseClicked(final MouseEvent e) {
+		view.setShowHighlight(false);
+	}
+
+	@Override
+	public void mousePressed(final MouseEvent e) {
+	}
+
+	@Override
+	public void mouseReleased(final MouseEvent e) {
+	}
+
+	@Override
+	public void mouseEntered(final MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(final MouseEvent e) {
 	}
 }

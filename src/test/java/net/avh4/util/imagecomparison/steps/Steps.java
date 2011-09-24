@@ -1,6 +1,9 @@
 package net.avh4.util.imagecomparison.steps;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.awt.event.MouseListener;
+
 import net.avh4.util.imagecomparison.ImageDiff;
 import net.avh4.util.imagecomparison.Matchers;
 
@@ -20,6 +23,14 @@ public class Steps {
 	public void whenILaunchimagediffExpectedpngActualpng(final String fileA,
 			final String fileB) {
 		ui = ImageDiff.launch("./src/test/resources", fileA, fileB);
+	}
+
+	@When("I click the display")
+	public void whenIClickTheDisplay() {
+		final MouseListener[] mouseListeners = ui.getMouseListeners();
+		for (final MouseListener mouseListener : mouseListeners) {
+			mouseListener.mouseClicked(null);
+		}
 	}
 
 	@Then("I should see $what")
