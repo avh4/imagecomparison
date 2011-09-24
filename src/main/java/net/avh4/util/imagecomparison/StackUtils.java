@@ -11,7 +11,7 @@ abstract class StackUtils {
 		return getClass(callingStackTraceElement);
 	}
 
-	private static Class<?> getClass(final StackTraceElement stackTraceElement) {
+	public static Class<?> getClass(final StackTraceElement stackTraceElement) {
 		Class<?> sourceClass;
 		try {
 			sourceClass = Class.forName(stackTraceElement.getClassName());

@@ -30,7 +30,7 @@ public class Matchers {
 		final StackTraceElement trace = StackUtils
 				.getCallingTestMethodStackTraceElement();
 		final String methodName = trace.getMethodName();
-		final String className = StackUtils.getCallingClass().getSimpleName();
+		final String className = StackUtils.getClass(trace).getSimpleName();
 		return looksLike(String.format("%s.%s.png", className, methodName));
 	}
 
