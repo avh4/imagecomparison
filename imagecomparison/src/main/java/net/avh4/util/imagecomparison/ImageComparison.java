@@ -1,18 +1,18 @@
 package net.avh4.util.imagecomparison;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 
 public class ImageComparison {
+
+	private static final List<Renderer> renderers = Arrays.asList(
+			new SwingRenderer(), new UILayerRenderer());
 
 	public static boolean matchesImage(final BufferedImage itemImage,
 			final BufferedImage referenceImage, final String filename) {
@@ -80,58 +80,21 @@ public class ImageComparison {
 		}
 	}
 
-	private static BufferedImage drawComponent(final Component c) {
-		validateComponent(c);
-		final BufferedImage image = new BufferedImage(c.getWidth(),
-				c.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		final Graphics2D g = image.createGraphics();
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_OFF);
-		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-				RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-		c.paint(g);
-		g.dispose();
-		return image;
-	}
+	private static BufferedImage getImage(final Object item) {
 
-	// This code remains here until we can refactor to move this into the
-	// net.avh4.gui project.
-	// private static BufferedImage drawView(final View view) {
-	// final Dimension size = view.getPreferredSize();
-	// final BufferedImage image = new BufferedImage(size.width, size.height,
-	// BufferedImage.TYPE_INT_ARGB);
-	// final Graphics2D g = image.createGraphics();
-	// view.paint(g);
-	// g.dispose();
-	// return image;
-	// }
+		if (item instanceof BufferedImage) {
+			return (BufferedImage) item;
+		}
 
-	private static void validateComponent(final Component c) {
-		if (!c.isValid()) {
-			if (c instanceof Window) {
-				final Window c1 = (Window) c;
-				c1.pack();
-			} else {
-				c.setSize(c.getPreferredSize());
+		for (final Renderer r : renderers) {
+			final BufferedImage rendering = r.getImage(item);
+			if (rendering != null) {
+				return rendering;
 			}
 		}
-	}
 
-	private static BufferedImage getImage(final Object item) {
-		if (item instanceof JFrame) {
-			return drawComponent(((JFrame) item).getContentPane());
-		} else if (item instanceof Component) {
-			return drawComponent((Component) item);
-		} else if (item instanceof BufferedImage) {
-			return (BufferedImage) item;
-			// This code remains here until we can refactor to move this into
-			// the net.avh4.gui project.
-			// } else if (item instanceof View) {
-			// return drawView((View) item);
-		} else {
-			throw new RuntimeException("Don't know how to make an image of "
-					+ item);
-		}
+		throw new RuntimeException(String.format(
+				"Don't know how to make an image of %s\nUsing renderers %s",
+				item.toString(), renderers.toString()));
 	}
-
 }
