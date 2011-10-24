@@ -24,7 +24,7 @@ class UILayerRenderer implements Renderer {
 				// final Component comp = new SwingSceneRenderer((SceneCreator)
 				// obj);
 				final Class<?> swingSceneRenderer = Class
-						.forName("net.avh4.framework.uilayer.swing.scene.SwingSceneRenderer");
+						.forName("net.avh4.framework.uilayer.scene.SwingSceneRenderer");
 				final Constructor<?> ctor = swingSceneRenderer
 						.getConstructor(sceneCreator);
 				final Component comp = (Component) ctor.newInstance(obj);
