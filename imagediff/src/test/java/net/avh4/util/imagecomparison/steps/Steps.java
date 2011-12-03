@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 
 import net.avh4.util.imagecomparison.ImageDiff;
 import net.avh4.util.imagecomparison.Matchers;
+import net.avh4.util.sandbox.Sandbox;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jbehave.core.annotations.Given;
@@ -22,7 +23,10 @@ public class Steps {
 	@When("I launch \"imagediff $fileA $fileB\"")
 	public void whenILaunchimagediffExpectedpngActualpng(final String fileA,
 			final String fileB) {
-		ui = ImageDiff.launch("./src/test/resources", fileA, fileB);
+		final Sandbox sandbox = new Sandbox();
+		sandbox.useResource(fileA);
+		sandbox.useResource(fileB);
+		ui = ImageDiff.launch(sandbox.getRoot(), fileA, fileB);
 	}
 
 	@When("I click the display")

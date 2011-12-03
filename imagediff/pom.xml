@@ -44,7 +44,7 @@
         <executions>
           <execution>
             <id>run-stories-as-embeddables</id>
-            <phase>integration-test</phase>
+            <phase>test</phase>
             <configuration>
               <scope>test</scope>
               <includes>
@@ -94,6 +94,12 @@
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>net.avh4.util</groupId>
+    	<artifactId>sandbox</artifactId>
+    	<version>0.0.5</version>
+    	<scope>runtime</scope>
     </dependency>
   </dependencies>
 
