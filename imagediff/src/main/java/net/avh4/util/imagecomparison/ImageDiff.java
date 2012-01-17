@@ -1,31 +1,36 @@
 package net.avh4.util.imagecomparison;
 
-import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class ImageDiff extends JFrame implements MouseListener {
+public class ImageDiff extends JPanel implements MouseListener {
 
 	private static final long serialVersionUID = 1L;
 	private final ImageDiffView view;
 
 	public ImageDiff(final String file1, final String file2) throws IOException {
-		setBackground(Color.WHITE);
+		final FlowLayout layout = (FlowLayout) getLayout();
+		layout.setHgap(0);
+		layout.setVgap(0);
 		addMouseListener(this);
 		view = new ImageDiffView(file1, file2);
-		getContentPane().add(view);
-		pack();
+		add(view);
 	}
 
 	public static void main(final String[] args) {
+		final JFrame window = new JFrame();
 		final ImageDiff ui = launch(args[0], args[1]);
-		ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ui.setLocationRelativeTo(null);
-		ui.setVisible(true);
+		window.add(ui);
+		window.pack();
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
 	}
 
 	public static ImageDiff launch(final String file1, final String file2) {
