@@ -54,8 +54,9 @@ public class ImageComparison {
 	}
 
 	private static void write(final BufferedImage image, final String filename) {
+		final String safeFilename = filename.replaceFirst("^.*/*", "");
 		try {
-			ImageIO.write(image, "png", new File(filename));
+			ImageIO.write(image, "png", new File(safeFilename));
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
