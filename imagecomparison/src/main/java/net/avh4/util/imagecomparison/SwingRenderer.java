@@ -42,6 +42,7 @@ class SwingRenderer implements Renderer {
 				c1.pack();
 			} else {
 				c.setSize(c.getPreferredSize());
+				c.doLayout();
 			}
 		}
 	}
