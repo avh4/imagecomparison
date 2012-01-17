@@ -1,3 +1,3 @@
 task :default do
-  system 'mvn package'
+  system 'mvn clean package' or abort $?.to_s
 end
