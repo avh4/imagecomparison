@@ -7,14 +7,6 @@
     <version>7</version>
   </parent>
 
-  <!-- this is only temporary until cucumber-jvm reached 1.0.0 release, after which the packages will be in maven central -->
-  <repositories>
-    <repository>
-      <id>sonatype-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-  </repositories>
-
   <groupId>net.avh4.util</groupId>
   <artifactId>imagediff</artifactId>
   <version>0.0.6-SNAPSHOT</version>
@@ -119,13 +111,13 @@
     <dependency>
       <groupId>info.cukes</groupId>
       <artifactId>cucumber-junit</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0.RC5</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>info.cukes</groupId>
       <artifactId>cucumber-picocontainer</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0.RC5</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
