@@ -18,16 +18,28 @@ class UILayerRenderer implements Renderer {
 		try {
 			final Class<?> sceneCreator = Class
 					.forName("net.avh4.framework.uilayer.SceneCreator");
+			final Class<?> sceneElement = Class
+					.forName("net.avh4.framework.uilayer.scene.SceneElement");
+			final Class<?> swingSceneRenderer = Class
+					.forName("net.avh4.framework.uilayer.scene.SwingSceneRenderer");
 
 			// if (obj instanceof SceneCreator) {
 			if (sceneCreator.isAssignableFrom(obj.getClass())) {
 				// final Component comp = new SwingSceneRenderer((SceneCreator)
 				// obj);
-				final Class<?> swingSceneRenderer = Class
-						.forName("net.avh4.framework.uilayer.scene.SwingSceneRenderer");
 				final Constructor<?> ctor = swingSceneRenderer
 						.getConstructor(sceneCreator);
 				final Component comp = (Component) ctor.newInstance(obj);
+
+				return SwingRenderer.drawComponent(comp);
+				// } else if (obj instanceof SceneElement) {
+			} else if (sceneElement.isAssignableFrom(obj.getClass())) {
+				// final Component comp = new SwingSceneRenderer((SceneElement)
+				// obj);
+				final Constructor<?> ctor = swingSceneRenderer
+						.getConstructor(sceneElement);
+				final Component comp = (Component) ctor.newInstance(obj);
+
 				return SwingRenderer.drawComponent(comp);
 			}
 
