@@ -83,6 +83,10 @@ public class ImageComparison {
 
 	private static BufferedImage getImage(final Object item) {
 
+		if (item == null) {
+			return null;
+		}
+
 		if (item instanceof BufferedImage) {
 			return (BufferedImage) item;
 		}
