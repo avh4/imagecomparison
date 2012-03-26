@@ -12,7 +12,6 @@
       <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Test libs" level="project" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="Maven: junit:junit-dep:4.8.2" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.2.1" level="project" />
