@@ -1,6 +1,6 @@
 package net.avh4.util.imagecomparison;
 
-import static net.avh4.util.imagecomparison.Matchers.isApproved;
+import static net.avh4.util.imagecomparison.ImageComparisonMatchers.isApproved;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Before;

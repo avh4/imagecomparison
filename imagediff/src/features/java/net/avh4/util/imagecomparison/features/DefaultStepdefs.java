@@ -1,11 +1,12 @@
 package net.avh4.util.imagecomparison.features;
 
+import static net.avh4.util.imagecomparison.ImageComparisonMatchers.looksLike;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.awt.event.MouseListener;
 
+import net.avh4.util.imagecomparison.ImageComparisonMatchers;
 import net.avh4.util.imagecomparison.ImageDiff;
-import net.avh4.util.imagecomparison.Matchers;
 import net.avh4.util.sandbox.Sandbox;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -42,6 +43,6 @@ public class DefaultStepdefs {
 	public void thenIShouldSeeADisplayOfActualpngWithTheDifferencesFromExpectedpngHighlighted(
 			final String what) throws Exception {
 		final String hash = DigestUtils.shaHex(what);
-		assertThat(ui, Matchers.looksLike("/" + hash + ".png"));
+		assertThat(ui, looksLike("/" + hash + ".png"));
 	}
 }

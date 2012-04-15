@@ -1,8 +1,8 @@
 package net.avh4.util.imagecomparison;
 
-import java.lang.reflect.Method;
-
 import org.junit.Test;
+
+import java.lang.reflect.Method;
 
 abstract class StackUtils {
 
@@ -12,7 +12,7 @@ abstract class StackUtils {
 	}
 
 	public static Class<?> getClass(final StackTraceElement stackTraceElement) {
-		Class<?> sourceClass;
+		final Class<?> sourceClass;
 		try {
 			sourceClass = Class.forName(stackTraceElement.getClassName());
 		} catch (final ClassNotFoundException e) {

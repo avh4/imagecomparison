@@ -1,13 +1,14 @@
 package net.avh4.util.imagecomparison;
 
+import org.hamcrest.Description;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 public class ImageComparison {
 
@@ -68,23 +69,23 @@ public class ImageComparison {
 		return matches(item, expectedImage, outputFilename);
 	}
 
-	public static boolean matches(final Object actual,
-			final BufferedImage expectedImage, final String outputFilename) {
-		final BufferedImage actualImage = ImageComparison.getImage(actual);
-		if (actualImage == null) {
-			return false;
-		} else if (expectedImage == null) {
-			write(actualImage, outputFilename);
-			return false;
-		} else {
-			return matchesImage(actualImage, expectedImage, outputFilename);
-		}
-	}
+    public static boolean matches(final Object actual,
+                                  final BufferedImage expectedImage, final String outputFilename) {
+        final BufferedImage actualImage = ImageComparison.getImage(actual);
+        if (actualImage == null) {
+            throw new UnrenderableException(actual, renderers);
+        } else if (expectedImage == null) {
+            write(actualImage, outputFilename);
+            throw new ApprovalImageNotFoundException(outputFilename);
+        } else {
+            return matchesImage(actualImage, expectedImage, outputFilename);
+        }
+    }
 
 	private static BufferedImage getImage(final Object item) {
 
 		if (item == null) {
-			return null;
+            return null;
 		}
 
 		if (item instanceof BufferedImage) {
@@ -98,8 +99,6 @@ public class ImageComparison {
 			}
 		}
 
-		throw new RuntimeException(String.format(
-				"Don't know how to make an image of %s\nUsing renderers %s",
-				item.toString(), renderers.toString()));
+        return null;
 	}
 }
