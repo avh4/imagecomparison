@@ -1,13 +1,11 @@
 package net.avh4.util.imagecomparison;
 
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class ImageDiff extends JPanel implements MouseListener {
 
@@ -15,6 +13,7 @@ public class ImageDiff extends JPanel implements MouseListener {
 	private final ImageDiffView view;
 
 	public ImageDiff(final String file1, final String file2) throws IOException {
+        setBackground(new Color(232, 232, 232));
 		final FlowLayout layout = (FlowLayout) getLayout();
 		layout.setHgap(0);
 		layout.setVgap(0);
