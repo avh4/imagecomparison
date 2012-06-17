@@ -1,9 +1,11 @@
 package net.avh4.util.imagecomparison;
 
 import org.hamcrest.Matcher;
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 import static net.avh4.util.MatcherMatcher.doesNotMatch;
@@ -12,6 +14,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ImageComparisonMatchersTest {
 
     private Matcher<?> matcher;
+
+    @AfterClass
+    public static void tearDown() {
+        new File("ImageComparisonMatchersTest.isApproved_whenApprovalImageDoesNotExist.png")
+                .delete();
+    }
 
     @Test
     public void isApproved_withNullActual() throws Exception {
