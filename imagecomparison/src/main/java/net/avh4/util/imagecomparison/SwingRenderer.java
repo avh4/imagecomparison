@@ -1,14 +1,10 @@
 package net.avh4.util.imagecomparison;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Window;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JFrame;
-
-class SwingRenderer implements Renderer {
+public class SwingRenderer implements Renderer {
 
 	@Override
 	public BufferedImage getImage(final Object item) {

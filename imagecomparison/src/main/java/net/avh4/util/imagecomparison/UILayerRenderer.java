@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
  * the simplified code is commented out, and is replaced by the reflection
  * version of the same thing.
  */
-class UILayerRenderer implements Renderer {
+public class UILayerRenderer implements Renderer {
 
 	@Override
 	public BufferedImage getImage(final Object obj) {

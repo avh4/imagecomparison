@@ -1,19 +1,18 @@
 package net.avh4.util.imagecomparison;
 
-import org.hamcrest.Description;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceLoader;
 
 public class ImageComparison {
 
-	private static final List<Renderer> renderers = Arrays.asList(
-			new SwingRenderer(), new UILayerRenderer());
+    private static final ServiceLoader<Renderer> rendererLoader =
+            ServiceLoader.load(Renderer.class);
 
 	public static boolean matchesImage(final BufferedImage itemImage,
 			final BufferedImage referenceImage, final String filename) {
@@ -73,6 +72,10 @@ public class ImageComparison {
                                   final BufferedImage expectedImage, final String outputFilename) {
         final BufferedImage actualImage = ImageComparison.getImage(actual);
         if (actualImage == null) {
+            List<Renderer> renderers = new ArrayList<Renderer>();
+            for (Renderer renderer : rendererLoader) {
+                renderers.add(renderer);
+            }
             throw new UnrenderableException(actual, renderers);
         } else if (expectedImage == null) {
             write(actualImage, outputFilename);
@@ -92,7 +95,7 @@ public class ImageComparison {
 			return (BufferedImage) item;
 		}
 
-		for (final Renderer r : renderers) {
+		for (final Renderer r : rendererLoader) {
 			final BufferedImage rendering = r.getImage(item);
 			if (rendering != null) {
 				return rendering;
