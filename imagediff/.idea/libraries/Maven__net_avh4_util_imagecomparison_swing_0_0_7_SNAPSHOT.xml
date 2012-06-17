@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.avh4.util:imagecomparison-swing:0.0.7-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/avh4/util/imagecomparison-swing/0.0.7-SNAPSHOT/imagecomparison-swing-0.0.7-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/avh4/util/imagecomparison-swing/0.0.7-SNAPSHOT/imagecomparison-swing-0.0.7-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/avh4/util/imagecomparison-swing/0.0.7-SNAPSHOT/imagecomparison-swing-0.0.7-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
