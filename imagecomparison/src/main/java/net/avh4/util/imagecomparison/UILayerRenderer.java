@@ -1,6 +1,6 @@
 package net.avh4.util.imagecomparison;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -13,51 +13,51 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class UILayerRenderer implements Renderer {
 
-	@Override
-	public BufferedImage getImage(final Object obj) {
-		try {
-			final Class<?> sceneCreator = Class
-					.forName("net.avh4.framework.uilayer.SceneCreator");
-			final Class<?> sceneElement = Class
-					.forName("net.avh4.framework.uilayer.scene.SceneElement");
-			final Class<?> swingSceneRenderer = Class
-					.forName("net.avh4.framework.uilayer.scene.SwingSceneRenderer");
+    @Override
+    public BufferedImage getImage(final Object obj) {
+        try {
+            final Class<?> sceneCreator = Class
+                    .forName("net.avh4.framework.uilayer.SceneCreator");
+            final Class<?> sceneElement = Class
+                    .forName("net.avh4.framework.uilayer.scene.SceneElement");
+            final Class<?> swingSceneRenderer = Class
+                    .forName("net.avh4.framework.uilayer.scene.SwingSceneRenderer");
 
-			// if (obj instanceof SceneCreator) {
-			if (sceneCreator.isAssignableFrom(obj.getClass())) {
-				// final Component comp = new SwingSceneRenderer((SceneCreator)
-				// obj);
-				final Constructor<?> ctor = swingSceneRenderer
-						.getConstructor(sceneCreator);
-				final Component comp = (Component) ctor.newInstance(obj);
+            // if (obj instanceof SceneCreator) {
+            if (sceneCreator.isAssignableFrom(obj.getClass())) {
+                // final Component comp = new SwingSceneRenderer((SceneCreator)
+                // obj);
+                final Constructor<?> ctor = swingSceneRenderer
+                        .getConstructor(sceneCreator);
+                final Component comp = (Component) ctor.newInstance(obj);
 
-				return SwingRenderer.drawComponent(comp);
-				// } else if (obj instanceof SceneElement) {
-			} else if (sceneElement.isAssignableFrom(obj.getClass())) {
-				// final Component comp = new SwingSceneRenderer((SceneElement)
-				// obj);
-				final Constructor<?> ctor = swingSceneRenderer
-						.getConstructor(sceneElement);
-				final Component comp = (Component) ctor.newInstance(obj);
+                return SwingRenderer.drawComponent(comp);
+                // } else if (obj instanceof SceneElement) {
+            } else if (sceneElement.isAssignableFrom(obj.getClass())) {
+                // final Component comp = new SwingSceneRenderer((SceneElement)
+                // obj);
+                final Constructor<?> ctor = swingSceneRenderer
+                        .getConstructor(sceneElement);
+                final Component comp = (Component) ctor.newInstance(obj);
 
-				return SwingRenderer.drawComponent(comp);
-			}
+                return SwingRenderer.drawComponent(comp);
+            }
 
-		} catch (final ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (final SecurityException e) {
-			e.printStackTrace();
-		} catch (final NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (final IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (final InstantiationException e) {
-			e.printStackTrace();
-		} catch (final IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (final InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+        } catch (final ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (final SecurityException e) {
+            e.printStackTrace();
+        } catch (final NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (final IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (final InstantiationException e) {
+            e.printStackTrace();
+        } catch (final IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (final InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

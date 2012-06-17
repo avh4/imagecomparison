@@ -74,7 +74,7 @@ public class MatcherMatcherTest {
         @Test
         public void shouldDescribeExpectation() throws Exception {
             assertThat(getDescription(matcherMatcher), is("a Matcher that does not match \"Expected\" " +
-                    "with mismatch description \"was an object described by this custom mismatch description\"" ));
+                    "with mismatch description \"was an object described by this custom mismatch description\""));
         }
     }
 }

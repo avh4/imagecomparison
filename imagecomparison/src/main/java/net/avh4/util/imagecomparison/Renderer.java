@@ -4,6 +4,6 @@ import java.awt.image.BufferedImage;
 
 interface Renderer {
 
-	BufferedImage getImage(Object obj);
+    BufferedImage getImage(Object obj);
 
 }
