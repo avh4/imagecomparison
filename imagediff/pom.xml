@@ -9,7 +9,7 @@
 
   <groupId>net.avh4.util</groupId>
   <artifactId>imagediff</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>imagediff</name>
@@ -85,13 +85,13 @@
     <dependency>
       <groupId>net.avh4.util</groupId>
       <artifactId>imagecomparison</artifactId>
-      <version>0.1.0</version>
+      <version>0.1.1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>net.avh4.util</groupId>
       <artifactId>imagecomparison-swing</artifactId>
-      <version>0.1.0</version>
+      <version>0.1.1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
