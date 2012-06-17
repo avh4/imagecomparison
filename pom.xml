@@ -37,6 +37,7 @@
 
   <modules>
     <module>imagecomparison</module>
+    <module>imagecomparison-swing</module>
     <module>imagediff</module>
   </modules>
 

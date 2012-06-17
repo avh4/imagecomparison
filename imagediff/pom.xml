@@ -90,6 +90,12 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>net.avh4.util</groupId>
+      <artifactId>imagecomparison-swing</artifactId>
+      <version>0.0.7-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit-dep</artifactId>
       <scope>compile</scope>
