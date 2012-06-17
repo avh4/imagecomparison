@@ -35,8 +35,7 @@ abstract class StackUtils {
         while (isSkippable(stackTrace[i], alsoSkippable)) {
             i++;
         }
-        final StackTraceElement callingStackTraceElement = stackTrace[i];
-        return callingStackTraceElement;
+        return stackTrace[i];
     }
 
     private static boolean isSkippable(
@@ -66,8 +65,7 @@ abstract class StackUtils {
         while (!isTestMethod(stackTrace[i])) {
             i++;
         }
-        final StackTraceElement callingStackTraceElement = stackTrace[i];
-        return callingStackTraceElement;
+        return stackTrace[i];
     }
 
     private static boolean isTestMethod(

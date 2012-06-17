@@ -13,11 +13,10 @@ import static org.hamcrest.Matchers.containsString;
 public class UnrenderableExceptionTest {
 
     private UnrenderableException subject;
-    private List<Renderer> renderers;
 
     @Before
     public void setup() throws Exception {
-        renderers = Arrays.asList(new Renderer1(), new Renderer2());
+        List<Renderer> renderers = Arrays.asList(new Renderer1(), new Renderer2());
         subject = new UnrenderableException(new SomeObject(), renderers);
     }
 
