@@ -1,20 +1,18 @@
 package net.avh4.util.imagecomparison.features;
 
-import static net.avh4.util.imagecomparison.ImageComparisonMatchers.looksLike;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.awt.event.MouseListener;
-
-import net.avh4.util.imagecomparison.ImageComparisonMatchers;
-import net.avh4.util.imagecomparison.ImageDiff;
-import net.avh4.util.sandbox.Sandbox;
-
-import org.apache.commons.codec.digest.DigestUtils;
-
 import cucumber.annotation.en.Given;
 import cucumber.annotation.en.Then;
 import cucumber.annotation.en.When;
+import net.avh4.util.imagecomparison.ImageDiff;
+import net.avh4.util.sandbox.Sandbox;
+import org.apache.commons.codec.digest.DigestUtils;
 
+import java.awt.event.MouseListener;
+
+import static net.avh4.util.imagecomparison.ImageComparisonMatchers.looksLike;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+@SuppressWarnings("UnusedDeclaration")
 public class DefaultStepdefs {
 	private ImageDiff ui;
 
