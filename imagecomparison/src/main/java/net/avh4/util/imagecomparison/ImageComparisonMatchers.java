@@ -19,6 +19,7 @@ import java.io.StringWriter;
  */
 public class ImageComparisonMatchers {
 
+    @SuppressWarnings("UnusedDeclaration")
     @Factory
     public static Matcher<Object> looksLike(final String string)
             throws IOException {
@@ -26,19 +27,34 @@ public class ImageComparisonMatchers {
     }
 
     @Factory
+    public static Matcher<Object> looksLike(final String string, final Class<?> callingClass)
+            throws IOException {
+        return new LooksLikeMatcher(string, callingClass);
+    }
+
+    @Factory
     public static Matcher<Object> isApproved() throws IOException {
-        final StackTraceElement trace = StackUtils
-                .getCallingTestMethodStackTraceElement();
+        final StackTraceElement trace = StackUtils.getCallingTestMethodStackTraceElement();
         final String methodName = trace.getMethodName();
-        Class<?> aClass = StackUtils.getClass(trace);
-        final String className = getClassName(aClass);
-        return looksLike(String.format("%s.%s.png", className, methodName));
+        final String className = getClassName(trace);
+        final Class<?> clazz = getClassObject(trace);
+        return looksLike(String.format("%s.%s.png", className, methodName), clazz);
     }
 
-    private static String getClassName(Class<?> aClass) {
-        return aClass.getCanonicalName().replaceAll("^[a-z0-9.]*", "");
+    private static Class<?> getClassObject(StackTraceElement trace) {
+        try {
+            return Class.forName(trace.getClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
+    private static String getClassName(StackTraceElement trace) {
+        return trace.getClassName().replaceAll("^[a-z0-9.]*", "").replaceAll("\\$", ".");
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
     @Factory
     public static Matcher<String> matchesFile(final String filename)
             throws IOException {

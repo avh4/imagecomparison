@@ -17,8 +17,12 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
     private final Class<?> sourceClass;
 
     public LooksLikeMatcher(String filename) throws IOException {
+        this(filename, StackUtils.getCallingClass((Class<?>) ImageComparisonMatchers.class));
+    }
+
+    public LooksLikeMatcher(String filename, Class<?> callingClass) throws IOException {
         super();
-        sourceClass = StackUtils.getCallingClass((Class<?>) ImageComparisonMatchers.class);
+        sourceClass = callingClass;
 
         this.filename = filename;
         final URL resource = sourceClass.getResource(filename);
