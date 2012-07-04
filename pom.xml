@@ -7,7 +7,7 @@
   </parent>
   <groupId>net.avh4.util</groupId>
   <artifactId>imagecomparison-parent</artifactId>
-  <version>0.1.2-SNAPSHOT</version>
+  <version>0.1.2</version>
   <packaging>pom</packaging>
 
   <name>imagecomparison-parent</name>
