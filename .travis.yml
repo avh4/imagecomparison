@@ -1,2 +1,2 @@
 language: java
-after_script: script/publish_approval_images.sh
+script: script/travis-ci-test.sh
