@@ -51,6 +51,7 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
             mismatchDescription.appendText(filename);
             mismatchDescription.appendText(" doesn't exist -- expected to find it in ");
             mismatchDescription.appendText(sourceClass.getPackage().getName());
+            e.writeActualImageToFile(filename);
             return false;
         } catch (ImageMismatchException e) {
             mismatchDescription.appendText("images don't match: ");
