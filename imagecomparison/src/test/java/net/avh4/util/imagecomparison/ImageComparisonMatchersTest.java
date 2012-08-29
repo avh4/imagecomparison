@@ -44,7 +44,9 @@ public class ImageComparisonMatchersTest {
     public void isApproved_whenApprovalImageDoesNotExist() throws Exception {
         matcher = ImageComparisonMatchers.isApproved();
         final BufferedImage image = new BufferedImage(1, 1, TYPE_INT_RGB);
-        assertThat(matcher, doesNotMatch(image).withDescription("approval image ImageComparisonMatchersTest.isApproved_whenApprovalImageDoesNotExist.png doesn't exist"));
+        assertThat(matcher, doesNotMatch(image).withDescription("approval image " +
+                "ImageComparisonMatchersTest.isApproved_whenApprovalImageDoesNotExist.png doesn't exist " +
+                "-- expected to find it in net.avh4.util.imagecomparison"));
     }
 
     @Test

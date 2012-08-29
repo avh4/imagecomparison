@@ -28,7 +28,9 @@ public class ImageComparisonMatchersEnclosedTest {
             final Matcher<?> matcher = ImageComparisonMatchers.isApproved();
             final BufferedImage image = new BufferedImage(1, 1, TYPE_INT_RGB);
             assertThat(matcher, doesNotMatch(image)
-                    .withDescription("approval image ImageComparisonMatchersEnclosedTest.Inner.whenApprovalImageDoesNotExist_isApproved_doesNotMatch.png doesn't exist"));
+                    .withDescription("approval image " +
+                            "ImageComparisonMatchersEnclosedTest.Inner.whenApprovalImageDoesNotExist_isApproved_doesNotMatch.png " +
+                            "doesn't exist -- expected to find it in net.avh4.util.imagecomparison"));
         }
     }
 }

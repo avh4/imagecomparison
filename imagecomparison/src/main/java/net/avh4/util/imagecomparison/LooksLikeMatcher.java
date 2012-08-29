@@ -40,16 +40,17 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
     @Override
     protected boolean matches(Object item, Description mismatchDescription) {
         try {
-            ImageComparison.matches(item, referenceImage, filename);
+            ImageComparison.matches(item, referenceImage);
             return true;
         } catch (UnrenderableException e) {
             mismatchDescription.appendText("don't know how to make an image of ");
             mismatchDescription.appendValue(item);
             return false;
-        } catch (ApprovalImageNotFoundException e) {
+        } catch (ReferenceImageNotProvidedException e) {
             mismatchDescription.appendText("approval image ");
             mismatchDescription.appendText(filename);
-            mismatchDescription.appendText(" doesn't exist");
+            mismatchDescription.appendText(" doesn't exist -- expected to find it in ");
+            mismatchDescription.appendText(sourceClass.getPackage().getName());
             return false;
         } catch (ImageMismatchException e) {
             mismatchDescription.appendText("images don't match: ");

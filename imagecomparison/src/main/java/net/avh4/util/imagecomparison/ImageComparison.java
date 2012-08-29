@@ -106,13 +106,13 @@ public class ImageComparison {
     }
 
     public static void matches(final Object item,
-                               final String referenceFilename, @Deprecated final String outputFilename) throws ImageMismatchException {
+                               final String referenceFilename) throws ImageMismatchException {
         final BufferedImage expectedImage = read(referenceFilename);
-        matches(item, expectedImage, outputFilename);
+        matches(item, expectedImage);
     }
 
     public static void matches(final Object actual,
-                               final BufferedImage expectedImage, @Deprecated final String outputFilename) throws ImageMismatchException {
+                               final BufferedImage expectedImage) throws ImageMismatchException {
         final BufferedImage actualImage = ImageComparison.getImage(actual);
         if (actualImage == null) {
             List<Renderer> renderers = new ArrayList<Renderer>();
@@ -121,8 +121,7 @@ public class ImageComparison {
             }
             throw new UnrenderableException(actual, renderers);
         } else if (expectedImage == null) {
-            write(actualImage, outputFilename);
-            throw new ApprovalImageNotFoundException(outputFilename);
+            throw new ReferenceImageNotProvidedException(actualImage);
         } else {
             assertImagesMatch(actualImage, expectedImage);
         }
