@@ -14,34 +14,77 @@ public class ImageComparison {
     private static final ServiceLoader<Renderer> rendererLoader =
             ServiceLoader.load(Renderer.class);
 
-    public static boolean matchesImage(final BufferedImage itemImage,
-                                       final BufferedImage referenceImage, final String filename) {
+    public static void assertImagesMatch(final BufferedImage itemImage, final BufferedImage referenceImage)
+            throws ImageMismatchException {
         // Compare the image sizes
         if (itemImage.getWidth() != referenceImage.getWidth()
                 || itemImage.getHeight() != referenceImage.getHeight()) {
-            write(itemImage, filename);
-            return false;
+            throw new ImageSizeMismatchException(itemImage, itemImage.getWidth(), itemImage.getHeight(),
+                    referenceImage.getWidth(), referenceImage.getHeight());
+        }
+
+        // Validate the color models
+        for (int size : itemImage.getColorModel().getComponentSize()) {
+            if (size > 8) {
+                throw new RuntimeException("Don't know how to handle images with more than 8 bits per channel");
+            }
+        }
+        for (int size : referenceImage.getColorModel().getComponentSize()) {
+            if (size > 8) {
+                throw new RuntimeException("Don't know how to handle reference images with more than 8 bits per channel");
+            }
+        }
+        final Raster itemRaster = itemImage.getData();
+        final Raster referenceRaster = referenceImage.getData();
+        final int itemBands = itemRaster.getNumBands();
+        final int referenceBands = referenceRaster.getNumBands();
+        if (itemBands < 3) {
+            throw new RuntimeException("Don't know how to handle images with less than 3 data bands " +
+                    "(expecting RGB or ARGB color model)");
+        }
+        if (itemBands > 4) {
+            throw new RuntimeException("Don't know how to handle images with more than 4 data bands " +
+                    "(expecting RGB or ARGB color model)");
+        }
+        if (referenceBands < 3) {
+            throw new RuntimeException("Don't know how to handle reference images with less than 3 data bands " +
+                    "(expecting RGB or ARGB color model)");
+        }
+        if (referenceBands > 4) {
+            throw new RuntimeException("Don't know how to handle reference images with more than 4 data bands " +
+                    "(expecting RGB or ARGB color model)");
         }
 
         // Compare the image data
-        final Raster itemRaster = itemImage.getData();
-        final Raster referenceRaster = referenceImage.getData();
         final int width = itemRaster.getWidth();
         final int height = itemRaster.getHeight();
+        final int itemPixels[] = new int[itemBands * width];
+        final int referencePixels[] = new int[referenceBands * width];
         for (int y = 0; y < height; y++) {
-            final int itemPixels[] = new int[4 * width];
-            final int referencePixels[] = new int[4 * width];
             itemRaster.getPixels(0, y, width, 1, itemPixels);
             referenceRaster.getPixels(0, y, width, 1, referencePixels);
-            for (int i = 0; i < 4 * width; i++) {
-                if (itemPixels[i] != referencePixels[i]) {
-                    write(itemImage, filename);
-                    return false;
+            for (int x = 0; x < width; x++) {
+                int itemAlpha = (itemBands == 4)
+                        ? itemPixels[x * itemBands + 3] & 0xff
+                        : 0xff;
+                int itemPixel =
+                        (itemPixels[x * itemBands] & 0xff)
+                                | (itemPixels[x * itemBands + 1] & 0xff) << 8
+                                | (itemPixels[x * itemBands + 2] & 0xff) << 16
+                                | itemAlpha << 24;
+                int referenceAlpha = (referenceBands == 4)
+                        ? referencePixels[x * referenceBands + 3] & 0xff
+                        : 0xff;
+                int referencePixel =
+                        (referencePixels[x * referenceBands] & 0xff)
+                                | (referencePixels[x * referenceBands + 1] & 0xff) << 8
+                                | (referencePixels[x * referenceBands + 2] & 0xff) << 16
+                                | referenceAlpha << 24;
+                if (itemPixel != referencePixel) {
+                    throw new ImageMismatchException(itemImage, x, y, itemPixel, referencePixel);
                 }
             }
         }
-
-        return true;
     }
 
     private static BufferedImage read(final String imageName) {
@@ -53,7 +96,7 @@ public class ImageComparison {
         }
     }
 
-    private static void write(final BufferedImage image, final String filename) {
+    static void write(final BufferedImage image, final String filename) {
         final String safeFilename = filename.replaceFirst("^.*/+", "");
         try {
             ImageIO.write(image, "png", new File(safeFilename));
@@ -62,14 +105,14 @@ public class ImageComparison {
         }
     }
 
-    public static boolean matches(final Object item,
-                                  final String referenceFilename, final String outputFilename) {
+    public static void matches(final Object item,
+                               final String referenceFilename, @Deprecated final String outputFilename) throws ImageMismatchException {
         final BufferedImage expectedImage = read(referenceFilename);
-        return matches(item, expectedImage, outputFilename);
+        matches(item, expectedImage, outputFilename);
     }
 
-    public static boolean matches(final Object actual,
-                                  final BufferedImage expectedImage, final String outputFilename) {
+    public static void matches(final Object actual,
+                               final BufferedImage expectedImage, @Deprecated final String outputFilename) throws ImageMismatchException {
         final BufferedImage actualImage = ImageComparison.getImage(actual);
         if (actualImage == null) {
             List<Renderer> renderers = new ArrayList<Renderer>();
@@ -81,7 +124,7 @@ public class ImageComparison {
             write(actualImage, outputFilename);
             throw new ApprovalImageNotFoundException(outputFilename);
         } else {
-            return matchesImage(actualImage, expectedImage, outputFilename);
+            assertImagesMatch(actualImage, expectedImage);
         }
     }
 

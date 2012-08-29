@@ -40,7 +40,8 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
     @Override
     protected boolean matches(Object item, Description mismatchDescription) {
         try {
-            return ImageComparison.matches(item, referenceImage, filename);
+            ImageComparison.matches(item, referenceImage, filename);
+            return true;
         } catch (UnrenderableException e) {
             mismatchDescription.appendText("don't know how to make an image of ");
             mismatchDescription.appendValue(item);
@@ -50,9 +51,15 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
             mismatchDescription.appendText(filename);
             mismatchDescription.appendText(" doesn't exist");
             return false;
+        } catch (ImageMismatchException e) {
+            mismatchDescription.appendText("images don't match: ");
+            mismatchDescription.appendText(e.getLocalizedMessage());
+            e.writeActualImageToFile(filename);
+            return false;
         }
     }
 
+    @Override
     public void describeTo(Description description) {
         if (referenceImage == null) {
             description.appendText(String.format(
@@ -64,5 +71,4 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
                     referenceImageSize.width, referenceImageSize.height));
         }
     }
-
 }
