@@ -43,9 +43,7 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
             ImageComparison.matches(item, referenceImage);
             return true;
         } catch (UnrenderableException e) {
-            mismatchDescription.appendText("don't know how to make an image of ");
-            mismatchDescription.appendValue(item);
-            return false;
+            throw new RuntimeException("don't know how to make an image of " + item, e);
         } catch (ReferenceImageNotProvidedException e) {
             mismatchDescription.appendText("approval image ");
             mismatchDescription.appendText(filename);
