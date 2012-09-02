@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Method;
 
-abstract class StackUtils {
+public abstract class StackUtils {
 
     public static Class<?> getCallingClass(final Class<?>... alsoSkippable) {
         final StackTraceElement callingStackTraceElement = getCallingStackTraceElement(alsoSkippable);
