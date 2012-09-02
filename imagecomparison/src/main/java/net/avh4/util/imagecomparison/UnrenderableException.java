@@ -15,7 +15,7 @@ public class UnrenderableException extends RuntimeException {
     public String getMessage() {
         StringBuilder sb = new StringBuilder();
         sb.append("Don't know how to make an image of ");
-        sb.append(unrenderableObject.toString());
+        sb.append(unrenderableObject);
         sb.append("\nUsing renderers:");
         for (Renderer renderer : triedRenderers) {
             sb.append("\n        * ");
