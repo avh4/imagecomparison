@@ -7,12 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
 
 public class ImageComparison {
-
-    private static final ServiceLoader<Renderer> rendererLoader =
-            ServiceLoader.load(Renderer.class);
 
     public static void assertImagesMatch(final BufferedImage itemImage, final BufferedImage referenceImage)
             throws ImageMismatchException {
@@ -113,37 +109,14 @@ public class ImageComparison {
 
     public static void matches(final Object actual,
                                final BufferedImage expectedImage) throws ImageMismatchException {
-        final BufferedImage actualImage = ImageComparison.getImage(actual);
+        final BufferedImage actualImage = ImageRenderer.getImage(actual);
+
         if (actualImage == null) {
-            List<Renderer> renderers = new ArrayList<Renderer>();
-            for (Renderer renderer : rendererLoader) {
-                renderers.add(renderer);
-            }
-            throw new UnrenderableException(actual, renderers);
+            throw new UnrenderableException(actual, ImageRenderer.getRenderers());
         } else if (expectedImage == null) {
             throw new ReferenceImageNotProvidedException(actualImage);
         } else {
             assertImagesMatch(actualImage, expectedImage);
         }
-    }
-
-    private static BufferedImage getImage(final Object item) {
-
-        if (item == null) {
-            return null;
-        }
-
-        if (item instanceof BufferedImage) {
-            return (BufferedImage) item;
-        }
-
-        for (final Renderer r : rendererLoader) {
-            final BufferedImage rendering = r.getImage(item);
-            if (rendering != null) {
-                return rendering;
-            }
-        }
-
-        return null;
     }
 }
