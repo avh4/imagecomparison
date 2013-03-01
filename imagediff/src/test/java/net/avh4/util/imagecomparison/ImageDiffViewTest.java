@@ -3,6 +3,8 @@ package net.avh4.util.imagecomparison;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+
 import static net.avh4.util.imagecomparison.ImageComparisonMatchers.isApproved;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -12,8 +14,9 @@ public class ImageDiffViewTest {
 
     @Before
     public void setUp() throws Exception {
-        subject = new ImageDiffView("src/test/resources/expected.png",
-                "src/test/resources/actual.png");
+        subject = new ImageDiffView(
+                new File("src/test/resources/expected.png"),
+                new File("src/test/resources/actual.png"));
     }
 
     @Test
