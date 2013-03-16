@@ -6,6 +6,8 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -17,19 +19,36 @@ public class ImageDiff extends JPanel implements MouseListener {
 
     private static final long serialVersionUID = 1L;
     private final ImageDiffView view;
+    private boolean highlight = true;
+    private final JButton approveButton;
+    private static JFrame window;
 
-    public ImageDiff(File file1, File file2) throws IOException {
+    public ImageDiff(final File actualFile, final File expectedFile) throws IOException {
         setBackground(new Color(232, 232, 232));
-        final FlowLayout layout = (FlowLayout) getLayout();
-        layout.setHgap(0);
-        layout.setVgap(0);
+        BorderLayout layout = new BorderLayout(0, 0);
+        setLayout(layout);
         addMouseListener(this);
-        view = new ImageDiffView(file1, file2);
-        add(view);
+        view = new ImageDiffView(actualFile, expectedFile);
+        add(view, BorderLayout.CENTER);
+        approveButton = new JButton("Accept");
+        approveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    FileUtils.forceDelete(expectedFile);
+                    FileUtils.moveFile(actualFile, expectedFile);
+                    if (window != null) window.dispose();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e1.getLocalizedMessage());
+                }
+            }
+        });
+        add(approveButton, BorderLayout.SOUTH);
     }
 
     public static void main(final String[] args) {
-        final JFrame window = new JFrame();
+        window = new JFrame();
         final ImageDiff ui = launch(args);
         window.add(ui);
         window.pack();
@@ -57,9 +76,9 @@ public class ImageDiff extends JPanel implements MouseListener {
         return launch(new File(filename1), new File(filename2));
     }
 
-    private static ImageDiff launch(File file1, File file21) {
+    private static ImageDiff launch(File actualFile, File expectedFile) {
         try {
-            return new ImageDiff(file1, file21);
+            return new ImageDiff(actualFile, expectedFile);
         } catch (final IOException e) {
             e.printStackTrace();
         }
@@ -83,7 +102,8 @@ public class ImageDiff extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(final MouseEvent e) {
-        view.setShowHighlight(false);
+        highlight = !highlight;
+        view.setShowHighlight(highlight);
     }
 
     @Override
@@ -100,5 +120,9 @@ public class ImageDiff extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(final MouseEvent e) {
+    }
+
+    public JButton getApproveButton() {
+        return approveButton;
     }
 }
