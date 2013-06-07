@@ -16,10 +16,9 @@ public class ImageDiffView extends JComponent {
 
     private boolean showHighlight = true;
 
-    public ImageDiffView(final String file1, final String file2)
-            throws IOException {
-        image1 = ImageIO.read(new File(file1));
-        image2 = ImageIO.read(new File(file2));
+    public ImageDiffView(File file1, File file2) throws IOException {
+        image1 = ImageIO.read(file1);
+        image2 = ImageIO.read(file2);
     }
 
     @Override

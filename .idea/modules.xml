@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/imagecomparison/imagecomparison.iml" filepath="$PROJECT_DIR$/imagecomparison/imagecomparison.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imagecomparison-parent.iml" filepath="$PROJECT_DIR$/imagecomparison-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imagecomparison-swing/imagecomparison-swing.iml" filepath="$PROJECT_DIR$/imagecomparison-swing/imagecomparison-swing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imagediff/imagediff.iml" filepath="$PROJECT_DIR$/imagediff/imagediff.iml" />
+    </modules>
+  </component>
+</project>
+
