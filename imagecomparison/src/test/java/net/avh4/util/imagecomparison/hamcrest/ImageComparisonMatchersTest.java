@@ -13,7 +13,7 @@ import java.io.IOException;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 import static net.avh4.util.MatcherMatcher.doesNotMatch;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.fail;
 
@@ -37,7 +37,7 @@ public class ImageComparisonMatchersTest {
             fail("Expected RuntimeException");
         } catch (RuntimeException e) {
             assertThat(e.getMessage(),
-                    is("don't know how to make an image of <null>"));
+                    containsString("Don't know how to make an image of <null>"));
         }
     }
 
@@ -50,7 +50,7 @@ public class ImageComparisonMatchersTest {
             fail("Expected RuntimeException");
         } catch (RuntimeException e) {
             assertThat(e.getMessage(),
-                    is("don't know how to make an image of <{{ some object }}>"));
+                    containsString("Don't know how to make an image of <{{ some object }}>"));
         }
     }
 

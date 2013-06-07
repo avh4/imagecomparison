@@ -3,7 +3,6 @@ package net.avh4.util.imagecomparison.hamcrest;
 import net.avh4.util.imagecomparison.ImageComparison;
 import net.avh4.util.imagecomparison.ImageMismatchException;
 import net.avh4.util.imagecomparison.ReferenceImageNotProvidedException;
-import net.avh4.util.imagerender.UnrenderableException;
 import net.avh4.util.reflection.StackUtils;
 import org.hamcrest.Description;
 import org.hamcrest.DiagnosingMatcher;
@@ -47,11 +46,8 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
     @Override
     protected boolean matches(Object item, Description mismatchDescription) {
         try {
-            ImageComparison.matches(item, referenceImage);
+            ImageComparison.assertImagesMatch(item, referenceImage);
             return true;
-        } catch (UnrenderableException e) {
-            throw new RuntimeException(
-                    "don't know how to make an image of <" + item + ">", e);
         } catch (ReferenceImageNotProvidedException e) {
             mismatchDescription.appendText("approval image ");
             mismatchDescription.appendText(filename);

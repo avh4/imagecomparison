@@ -26,7 +26,7 @@ public class UnrenderableExceptionTest {
     @Test
     public void getMessage_shouldIncludeMessage() throws Exception {
         assertThat(subject.getMessage(), containsString(
-                "Don't know how to make an image of {{ some object }}"));
+                "Don't know how to make an image of <{{ some object }}>"));
     }
 
     @Test

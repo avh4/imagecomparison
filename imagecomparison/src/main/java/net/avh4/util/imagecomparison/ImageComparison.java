@@ -2,27 +2,26 @@ package net.avh4.util.imagecomparison;
 
 import net.avh4.util.imagerender.ImageRenderer;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
-import java.io.File;
-import java.io.IOException;
 
 public class ImageComparison {
 
-    public static void assertImagesMatch(final BufferedImage itemImage,
-                                         final BufferedImage referenceImage) throws ImageMismatchException {
-        ImageComparisonResult result = compare(itemImage, referenceImage);
+    public static void assertImagesMatch(final Object actual,
+                                         final Object expected) throws ImageMismatchException {
+        ImageComparisonResult result = compare(actual, expected);
         if (!result.isEqual()) {
             throw result.getException();
         }
     }
 
-    public static ImageComparisonResult compare(BufferedImage itemImage,
-                                                BufferedImage referenceImage) {
-        if (referenceImage == null) {
+    public static ImageComparisonResult compare(Object actual, Object reference) {
+        final BufferedImage itemImage = ImageRenderer.getImage(actual);
+        if (reference == null) {
             return new NoReferenceImageResult(itemImage);
         }
+
+        final BufferedImage referenceImage = ImageRenderer.getImage(reference);
 
         // Compare the image sizes
         if (itemImage.getWidth() != referenceImage.getWidth()
@@ -101,26 +100,5 @@ public class ImageComparison {
         }
 
         return ImageComparisonResult.SUCCESS;
-    }
-
-    private static BufferedImage read(final String imageName) {
-        try {
-            return ImageIO.read(new File(imageName));
-        } catch (final IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static void matches(final Object item,
-                               final String referenceFilename) throws ImageMismatchException {
-        final BufferedImage expectedImage = read(referenceFilename);
-        matches(item, expectedImage);
-    }
-
-    public static void matches(final Object actual,
-                               final BufferedImage expectedImage) throws ImageMismatchException {
-        final BufferedImage actualImage = ImageRenderer.getImage(actual);
-        assertImagesMatch(actualImage, expectedImage);
     }
 }
