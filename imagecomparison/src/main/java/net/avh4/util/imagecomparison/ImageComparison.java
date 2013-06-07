@@ -19,6 +19,10 @@ public class ImageComparison {
 
 	public static ImageComparisonResult compare(BufferedImage itemImage,
 			BufferedImage referenceImage) {
+		if (referenceImage == null) {
+			return new NoReferenceImageResult(itemImage);
+		}
+
 		// Compare the image sizes
 		if (itemImage.getWidth() != referenceImage.getWidth()
 				|| itemImage.getHeight() != referenceImage.getHeight()) {
@@ -129,8 +133,6 @@ public class ImageComparison {
 		if (actualImage == null) {
 			throw new UnrenderableException(actual,
 					ImageRenderer.getRenderers());
-		} else if (expectedImage == null) {
-			throw new ReferenceImageNotProvidedException(actualImage);
 		} else {
 			assertImagesMatch(actualImage, expectedImage);
 		}

@@ -95,4 +95,12 @@ public class ImageComparisonTest {
 				is((ImageComparisonResult) new SizeMismatchResult(
 						differentSizeImage, 1, 2, 2, 1)));
 	}
+
+	@Test
+	public void compare_withNoReferenceImage_shouldReturnFailure()
+			throws Exception {
+		assertThat(ImageComparison.compare(simpleImageArgb, null),
+				is((ImageComparisonResult) new NoReferenceImageResult(
+						simpleImageArgb)));
+	}
 }
