@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Maven: net.avh4.util:imagecomparison:0.2.2-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/avh4/util/imagecomparison/0.2.2-SNAPSHOT/imagecomparison-0.2.2-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/imagecomparison/imagecomparison-0.2.2-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/avh4/util/imagecomparison/0.2.2-SNAPSHOT/imagecomparison-0.2.2-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/imagecomparison/imagecomparison-0.2.2-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/avh4/util/imagecomparison/0.2.2-SNAPSHOT/imagecomparison-0.2.2-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

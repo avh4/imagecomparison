@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-import static net.avh4.util.imagecomparison.ImageComparisonMatchers.isApproved;
+import static net.avh4.util.imagecomparison.hamcrest.ImageComparisonMatchers.isApproved;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ImageDiffViewTest {

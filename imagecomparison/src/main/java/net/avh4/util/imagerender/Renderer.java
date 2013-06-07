@@ -1,4 +1,4 @@
-package net.avh4.util.imagecomparison;
+package net.avh4.util.imagerender;
 
 import java.awt.image.BufferedImage;
 

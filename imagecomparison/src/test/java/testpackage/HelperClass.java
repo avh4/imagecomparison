@@ -1,6 +1,6 @@
 package testpackage;
 
-import net.avh4.util.imagecomparison.ImageComparisonMatchers;
+import net.avh4.util.imagecomparison.hamcrest.ImageComparisonMatchers;
 import org.hamcrest.Matcher;
 
 import java.io.IOException;

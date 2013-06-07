@@ -9,7 +9,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 
-import static net.avh4.util.imagecomparison.ImageComparisonMatchers.looksLike;
+import static net.avh4.util.imagecomparison.hamcrest.ImageComparisonMatchers.looksLike;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
