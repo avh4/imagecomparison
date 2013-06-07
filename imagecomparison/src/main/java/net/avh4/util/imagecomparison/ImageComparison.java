@@ -120,12 +120,6 @@ public class ImageComparison {
 	public static void matches(final Object actual,
 			final BufferedImage expectedImage) throws ImageMismatchException {
 		final BufferedImage actualImage = ImageRenderer.getImage(actual);
-
-		if (actualImage == null) {
-			throw new UnrenderableException(actual,
-					ImageRenderer.getRenderers());
-		} else {
-			assertImagesMatch(actualImage, expectedImage);
-		}
+		assertImagesMatch(actualImage, expectedImage);
 	}
 }
