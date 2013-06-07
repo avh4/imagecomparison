@@ -111,15 +111,6 @@ public class ImageComparison {
 		}
 	}
 
-	static void write(final BufferedImage image, final String filename) {
-		final String safeFilename = filename.replaceFirst("^.*/+", "");
-		try {
-			ImageIO.write(image, "png", new File(safeFilename));
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public static void matches(final Object item,
 			final String referenceFilename) throws ImageMismatchException {
 		final BufferedImage expectedImage = read(referenceFilename);
