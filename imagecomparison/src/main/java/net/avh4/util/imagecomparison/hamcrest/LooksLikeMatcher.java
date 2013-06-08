@@ -1,8 +1,7 @@
 package net.avh4.util.imagecomparison.hamcrest;
 
 import net.avh4.util.imagecomparison.ImageComparison;
-import net.avh4.util.imagecomparison.ImageMismatchException;
-import net.avh4.util.imagecomparison.ReferenceImageNotProvidedException;
+import net.avh4.util.imagecomparison.ImageComparisonResult;
 import net.avh4.util.reflection.StackUtils;
 import org.hamcrest.Description;
 import org.hamcrest.DiagnosingMatcher;
@@ -45,21 +44,21 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
 
     @Override
     protected boolean matches(Object item, Description mismatchDescription) {
-        try {
-            ImageComparison.assertImagesMatch(item, referenceImage);
+        final ImageComparisonResult result = ImageComparison.compare(item, referenceImage);
+        if (result.isEqual()) {
             return true;
-        } catch (ReferenceImageNotProvidedException e) {
+        } else if (referenceImage == null) {
             mismatchDescription.appendText("approval image ");
             mismatchDescription.appendText(filename);
             mismatchDescription
                     .appendText(" doesn't exist -- expected to find it in ");
             mismatchDescription.appendText(sourceClass.getPackage().getName());
-            e.writeActualImageToFile(filename);
+            result.writeActualImageToFile(filename);
             return false;
-        } catch (ImageMismatchException e) {
+        } else {
             mismatchDescription.appendText("images don't match: ");
-            mismatchDescription.appendText(e.getLocalizedMessage());
-            e.writeActualImageToFile(filename);
+            mismatchDescription.appendText(result.getFailureMessage());
+            result.writeActualImageToFile(filename);
             return false;
         }
     }

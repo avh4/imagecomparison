@@ -7,32 +7,24 @@ import java.awt.image.Raster;
 
 public class ImageComparison {
 
-    public static void assertImagesMatch(final Object actual,
-                                         final Object expected) throws ImageMismatchException {
-        ImageComparisonResult result = compare(actual, expected);
-        if (!result.isEqual()) {
-            throw result.getException();
-        }
-    }
-
     public static ImageComparisonResult compare(Object actual, Object reference) {
-        final BufferedImage itemImage = ImageRenderer.getImage(actual);
+        final BufferedImage actualImage = ImageRenderer.getImage(actual);
         if (reference == null) {
-            return new NoReferenceImageResult(itemImage);
+            return new NoReferenceImageResult(actualImage);
         }
 
         final BufferedImage referenceImage = ImageRenderer.getImage(reference);
 
         // Compare the image sizes
-        if (itemImage.getWidth() != referenceImage.getWidth()
-                || itemImage.getHeight() != referenceImage.getHeight()) {
-            return new SizeMismatchResult(itemImage, itemImage.getWidth(),
-                    itemImage.getHeight(), referenceImage.getWidth(),
+        if (actualImage.getWidth() != referenceImage.getWidth()
+                || actualImage.getHeight() != referenceImage.getHeight()) {
+            return new SizeMismatchResult(actualImage, actualImage.getWidth(),
+                    actualImage.getHeight(), referenceImage.getWidth(),
                     referenceImage.getHeight());
         }
 
         // Validate the color models
-        for (int size : itemImage.getColorModel().getComponentSize()) {
+        for (int size : actualImage.getColorModel().getComponentSize()) {
             if (size > 8) {
                 throw new RuntimeException(
                         "Don't know how to handle images with more than 8 bits per channel");
@@ -44,7 +36,7 @@ public class ImageComparison {
                         "Don't know how to handle reference images with more than 8 bits per channel");
             }
         }
-        final Raster itemRaster = itemImage.getData();
+        final Raster itemRaster = actualImage.getData();
         final Raster referenceRaster = referenceImage.getData();
         final int itemBands = itemRaster.getNumBands();
         final int referenceBands = referenceRaster.getNumBands();
@@ -93,12 +85,12 @@ public class ImageComparison {
                                 (referencePixels[x * referenceBands + 2] & 0xff)
                                         << 16 | referenceAlpha << 24;
                 if (itemPixel != referencePixel) {
-                    return new PixelMismatchResult(itemImage, x, y, itemPixel,
+                    return new PixelMismatchResult(actualImage, x, y, itemPixel,
                             referencePixel);
                 }
             }
         }
 
-        return ImageComparisonResult.SUCCESS;
+        return new ImageComparisonSuccess(actualImage);
     }
 }
