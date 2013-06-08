@@ -59,7 +59,10 @@ assertThat(subject, looksLike("snazzy-dashboard.png"));
 ```java
 ImageComparisonResult result = ImageComparison.compare(new MyJComponent(), "./snazzy-dashboard.png");
 boolean renderingMatches = result.isEqual();
-if (!renderingMatches) System.out.println(result.getFailureMessage());
+if (!renderingMatches) {
+  System.out.println(result.getFailureMessage());
+  result.writeActualImageToFile("failed-rendering.png");
+}
 ```
 
 ## What you can test
