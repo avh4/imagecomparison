@@ -24,12 +24,14 @@
         <processorPath useClasspath="true" />
         <module name="imagecomparison" />
         <module name="imagecomparison-swing" />
+        <module name="imagecomparison-swt" />
         <module name="imagediff" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="imagecomparison" target="1.6" />
       <module name="imagecomparison-swing" target="1.6" />
+      <module name="imagecomparison-swt" target="1.6" />
       <module name="imagediff" target="1.6" />
       <module name="sandbox" target="1.6" />
     </bytecodeTargetLevel>

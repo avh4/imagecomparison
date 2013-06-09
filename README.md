@@ -10,10 +10,18 @@ Add the following dependencies to your `pom.xml`:
     <artifactId>imagecomparison</artifactId>
     <version>0.3.0</version>
   </dependency>
+  <!-- if you will be comparing AWT components, Swing JComponents or JFrames: -->
   <dependency>
     <groupId>net.avh4.util</groupId>
     <artifactId>imagecomparison-swing</artifactId>
     <version>0.3.0</version>
+    <scope>runtime</scope>
+  </dependency>
+  <!-- if you will be comparing SWT components -->
+  <dependency>
+    <groupId>net.avh4.util</groupId>
+    <artifactId>imagecomparison-swt</artifactId>
+    <version>0.3.1-SNAPSHOT</version>
     <scope>runtime</scope>
   </dependency>
 ```
@@ -70,8 +78,12 @@ if (!renderingMatches) {
 The `looks-like` checker currently can check the following types of objects:
 
 * `java.awt.image.BufferedImage`
-* `java.awt.Component` (which includes `javax.swing.JComponent`)
-* `javax.swing.JFrame`
+* with imagecomparison-swing: `java.awt.Component`
+* with imagecomparison-swing: `javax.swing.JComponent`
+* with imagecomparison-swing: `javax.swing.JFrame`
+* with imagecomparison-swt: `org.eclipse.swt.graphics.Image`
+* with imagecomparison-swt: `org.eclipse.swt.graphics.ImageData`
+* with imagecomparison-swt: `org.eclipse.swt.widgets.Control`
 
 Additional renderers can be added by implementing `net.avh4.util.imagerender.Renderer` and registering in `META-INF/services`
 (see [ServiceLoader](http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html)).

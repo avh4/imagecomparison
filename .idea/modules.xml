@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/imagecomparison/imagecomparison.iml" filepath="$PROJECT_DIR$/imagecomparison/imagecomparison.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagecomparison-parent.iml" filepath="$PROJECT_DIR$/imagecomparison-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagecomparison-swing/imagecomparison-swing.iml" filepath="$PROJECT_DIR$/imagecomparison-swing/imagecomparison-swing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/imagecomparison-swt/imagecomparison-swt.iml" filepath="$PROJECT_DIR$/imagecomparison-swt/imagecomparison-swt.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagediff/imagediff.iml" filepath="$PROJECT_DIR$/imagediff/imagediff.iml" />
     </modules>
   </component>
