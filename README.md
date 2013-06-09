@@ -8,20 +8,20 @@ Add the following dependencies to your `pom.xml`:
   <dependency>
     <groupId>net.avh4.util</groupId>
     <artifactId>imagecomparison</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
   </dependency>
   <!-- if you will be comparing AWT components, Swing JComponents or JFrames: -->
   <dependency>
     <groupId>net.avh4.util</groupId>
     <artifactId>imagecomparison-swing</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
     <scope>runtime</scope>
   </dependency>
   <!-- if you will be comparing SWT components -->
   <dependency>
     <groupId>net.avh4.util</groupId>
     <artifactId>imagecomparison-swt</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
+    <version>0.3.1</version>
     <scope>runtime</scope>
   </dependency>
 ```
