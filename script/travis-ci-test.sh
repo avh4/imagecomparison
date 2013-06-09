@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mvn test
+mvn test -PskipSwtTests
 EXIT="$?"
 
 script/publish_approval_images.sh
