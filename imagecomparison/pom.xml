@@ -8,7 +8,7 @@
 
     <groupId>net.avh4.util</groupId>
     <artifactId>imagecomparison</artifactId>
-    <version>0.3.2-SNAPSHOT</version>
+    <version>0.3.2</version>
     <packaging>jar</packaging>
 
     <name>imagecomparison</name>
