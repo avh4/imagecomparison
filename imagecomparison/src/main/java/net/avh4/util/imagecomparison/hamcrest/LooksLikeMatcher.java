@@ -7,7 +7,6 @@ import org.hamcrest.Description;
 import org.hamcrest.DiagnosingMatcher;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -16,11 +15,10 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
 
     private final String filename;
     private final BufferedImage referenceImage;
-    private final Dimension referenceImageSize;
     private final Class<?> sourceClass;
 
-    public LooksLikeMatcher(String filename) throws IOException {
-        this(filename, StackUtils
+    public LooksLikeMatcher(String resourceName) throws IOException {
+        this(resourceName, StackUtils
                 .getCallingClass((Class<?>) ImageComparisonMatchers.class));
     }
 
@@ -33,12 +31,8 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
         final URL resource = sourceClass.getResource(filename);
         if (resource == null) {
             referenceImage = null;
-            referenceImageSize = null;
         } else {
             referenceImage = ImageIO.read(resource);
-
-            referenceImageSize = new Dimension(referenceImage.getWidth(),
-                    referenceImage.getHeight());
         }
     }
 
@@ -72,8 +66,8 @@ public class LooksLikeMatcher extends DiagnosingMatcher<Object> {
         } else {
             description.appendText(
                     String.format("something that looks like %s (%dx%d)",
-                            filename, referenceImageSize.width,
-                            referenceImageSize.height));
+                            filename, referenceImage.getWidth(),
+                            referenceImage.getHeight()));
         }
     }
 }
